@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather_project/providers/weather_provider.dart';
+import 'package:flutter_weather_project/providers/location_provider.dart';
 import 'package:provider/provider.dart';
 
 class WeatherScreenMain extends StatefulWidget {
@@ -19,36 +19,36 @@ class _WeatherScreenMainState extends State<WeatherScreenMain> {
   }
 
   void _getData() {
-    final weatherProvider = Provider.of<WeatherProvider>(
+    final locationProvider = Provider.of<LocationProvider>(
       context,
       listen: false,
     );
-    weatherProvider.fetchLocations();
+    locationProvider.fetchLocations();
   }
 
   @override
   Widget build(BuildContext context) {
-    final weatherProvider = Provider.of<WeatherProvider>(
-      context,
-      listen: false,
-    );
-
-    if (weatherProvider.locations.isEmpty) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'SELECT LOCATION',
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
-      );
-    } else if (weatherProvider.locations.isNotEmpty &&
-        weatherProvider.selectedLocation == null) {
-      //Return screen to pick selected location
+    final locationProvider = Provider.of<LocationProvider>(context);
+    if (locationProvider.isLoading) {
       return SizedBox();
     } else {
-      //Return screen with selected location from provider
-      return SizedBox();
+      if (locationProvider.locations.isEmpty) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'SELECT LOCATION',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+        );
+      } else if (locationProvider.locations.isNotEmpty &&
+          locationProvider.selectedLocation == null) {
+        //Return screen to pick selected location
+        return SizedBox();
+      } else {
+        //Return screen with selected location from provider
+        return SizedBox();
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather_project/providers/weather_provider.dart';
+import 'package:flutter_weather_project/providers/location_provider.dart';
 import 'package:flutter_weather_project/screens/weather_screen_main.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,7 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => WeatherProvider()),
+        ChangeNotifierProvider(create: (context) => LocationProvider()),
       ],
       child: MaterialApp(
         title: 'Weather App',
