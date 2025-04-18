@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_project/models/location.dart';
 import 'package:flutter_weather_project/screens/new_location/new_location_error_message.dart';
+import 'package:flutter_weather_project/screens/new_location/new_location_tile.dart';
 import 'package:flutter_weather_project/services/geolocation_service.dart';
 
 class NewLocationForm extends StatefulWidget {
@@ -14,11 +15,19 @@ class NewLocationForm extends StatefulWidget {
 class _NewLocationFormState extends State<NewLocationForm> {
   final TextEditingController _textController = TextEditingController();
 
+  final FocusNode _focusNode = FocusNode();
+
   Timer? _debounce;
 
   bool _isError = false;
 
   List<Location> _foundLocations = [];
+
+  @override
+  void initState() {
+    _focusNode.requestFocus();
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -33,7 +42,7 @@ class _NewLocationFormState extends State<NewLocationForm> {
     setState(() {
       _isError = false;
     });
-    _debounce = Timer(const Duration(milliseconds: 850), () async {
+    _debounce = Timer(const Duration(milliseconds: 300), () async {
       final res = await GeolocationService.getLocationSearchResult(value);
       setState(() {
         if (res == null) {
@@ -69,6 +78,7 @@ class _NewLocationFormState extends State<NewLocationForm> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
+                    focusNode: _focusNode,
                     decoration: InputDecoration(hintText: "Search..."),
                     onChanged: (String value) => _onChangeText(value),
                   ),
@@ -80,10 +90,10 @@ class _NewLocationFormState extends State<NewLocationForm> {
                             : ListView.builder(
                               shrinkWrap: true,
                               itemCount: _foundLocations.length,
-                              itemBuilder: (context, index) {
-                                Location loc = _foundLocations[index];
-                                return Text(loc.fullLocationName);
-                              },
+                              itemBuilder:
+                                  (context, index) => NewLocationTile(
+                                    location: _foundLocations[index],
+                                  ),
                             ),
                   ),
                 ],
