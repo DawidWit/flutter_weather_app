@@ -19,6 +19,7 @@ class WeatherApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => LocationProvider()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Weather App',
         theme: _themeData,
         home: WeatherScreenMain(),
@@ -35,7 +36,7 @@ final ThemeData _themeData = ThemeData(
 
   appBarTheme: AppBarTheme(
     backgroundColor: Color(0xFF27233A),
-    iconTheme: IconThemeData(color: Color(0xFFA1CDA8)),
+    iconTheme: IconThemeData(color: Color(0xFFA1CDA8), size: 32),
     titleTextStyle: TextStyle(
       color: Color(0xFFA1CDA8),
       fontSize: 20,
@@ -60,7 +61,7 @@ final ThemeData _themeData = ThemeData(
     titleLarge: TextStyle(
       color: Color(0xFFA1CDA8),
       fontWeight: FontWeight.bold,
-      fontSize: 14,
+      fontSize: 18,
     ),
     titleSmall: TextStyle(color: Color(0xFFA1CDA8)),
   ),

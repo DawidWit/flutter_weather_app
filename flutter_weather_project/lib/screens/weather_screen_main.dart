@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_project/providers/location_provider.dart';
 import 'package:flutter_weather_project/screens/loading_screen.dart';
+import 'package:flutter_weather_project/screens/no_locations_screen/no_locations_screen.dart';
 import 'package:provider/provider.dart';
 
 class WeatherScreenMain extends StatefulWidget {
@@ -18,14 +19,7 @@ class _WeatherScreenMainState extends State<WeatherScreenMain> {
       return LoadingScreen();
     } else {
       if (locationProvider.locations.isEmpty) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'SELECT LOCATION',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),
-        );
+        return NoLocationsScreen();
       } else if (locationProvider.locations.isNotEmpty &&
           locationProvider.selectedLocation == null) {
         //Return screen to pick selected location
