@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather_project/screens/new_location.dart';
+import 'package:flutter_weather_project/screens/new_location/new_location.dart';
 
 class NoLocationsScreen extends StatelessWidget {
   const NoLocationsScreen({super.key});
