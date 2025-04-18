@@ -29,7 +29,9 @@ class _NewLocationFormState extends State<NewLocationForm> {
   void _onChangeText(String value) {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     if (value.isEmpty) return;
-    _isError = false;
+    setState(() {
+      _isError = false;
+    });
     _debounce = Timer(const Duration(milliseconds: 850), () async {
       final res = await GeolocationService.getLocationSearchResult(value);
       setState(() {
