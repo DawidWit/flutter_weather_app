@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_project/screens/new_location.dart';
 
 class NoLocationsScreen extends StatelessWidget {
   const NoLocationsScreen({super.key});
+
+  void _showAddForm(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => NewLocationForm(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +21,12 @@ class NoLocationsScreen extends StatelessWidget {
           'SELECT LOCATION',
           style: Theme.of(context).textTheme.titleLarge,
         ),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.add))],
+        actions: [
+          IconButton(
+            onPressed: () => _showAddForm(context),
+            icon: Icon(Icons.add),
+          ),
+        ],
       ),
       body: Center(
         child: Column(

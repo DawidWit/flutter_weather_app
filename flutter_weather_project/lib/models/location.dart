@@ -1,32 +1,39 @@
 class Location {
+  String fullLocationName;
   String locationName;
   double latitude;
   double longitude;
-  String country;
+  String countryCode;
   bool isFavourite;
 
   Location({
+    required this.fullLocationName,
     required this.locationName,
-    required this.country,
+    required this.countryCode,
     required this.latitude,
     required this.longitude,
-  }) : isFavourite = false;
+    this.isFavourite = false,
+  });
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
-      locationName: json['name'],
-      country: json['country'],
+      fullLocationName: json['fullLocationName'],
+      locationName: json["locationName"],
+      countryCode: json['countryCode'],
       latitude: json['latitude'],
       longitude: json['longitude'],
+      isFavourite: json['isFavourite'] ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'locationName': locationName,
+      'fullLocationName': fullLocationName,
       'latitude': latitude,
       'longitude': longitude,
-      'country': country,
+      "locationName": locationName,
+      'countryCode': countryCode,
+      'isFavourite': isFavourite,
     };
   }
 }
