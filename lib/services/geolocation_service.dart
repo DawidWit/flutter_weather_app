@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_weather_project/models/location.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:uuid/uuid.dart';
 
 class GeolocationService {
   static Future<List<Location>?> getLocationSearchResult(
@@ -29,6 +30,7 @@ class GeolocationService {
             continue;
           }
           Location loc = Location(
+            id: Uuid().v4(),
             fullLocationName: location['formatted'] ?? '',
             locationName: location['city'] ?? '',
             sublocationName: location['state'] ?? '',
@@ -37,7 +39,6 @@ class GeolocationService {
             longitude: location['lon'],
           );
           locations.add(loc);
-          print(location);
         }
         return locations;
       } catch (e) {

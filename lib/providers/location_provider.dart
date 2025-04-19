@@ -31,7 +31,9 @@ class LocationProvider extends ChangeNotifier {
 
     try {
       _prefs = await SharedPreferences.getInstance();
+      _prefs?.setStringList('', []);
       final List<Location>? temp = await _fetchLocationsFromPreferences();
+
       _locations = temp ?? [];
       _selectedLocation = await _fetchSelectedLocationFromPreferences();
     } catch (e) {
@@ -65,6 +67,36 @@ class LocationProvider extends ChangeNotifier {
       _locations.add(location);
       final List<Location> temp = await _fetchLocationsFromPreferences() ?? [];
       temp.add(location);
+      final List<String> encodedList =
+          temp.map((loc) => json.encode(loc.toJson())).toList();
+      await _prefs?.setStringList('locations', encodedList);
+      _isLoading = false;
+      notifyListeners();
+      return true;
+    } catch (e) {
+      _error = e.toString();
+      return false;
+    }
+  }
+
+  Future<bool> removeLocation(Location location) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
+
+    try {
+      // Check if the location exists in the list before removing it
+      if (_locations.contains(location)) {
+        _locations.remove(location);
+      }
+      final List<Location> temp = await _fetchLocationsFromPreferences() ?? [];
+      // Check if the location exists before attempting to remove
+      final index = temp.indexWhere(
+        (tempLocation) => location.id == tempLocation.id,
+      );
+      if (index != -1) {
+        temp.removeAt(index);
+      }
       final List<String> encodedList =
           temp.map((loc) => json.encode(loc.toJson())).toList();
       await _prefs?.setStringList('locations', encodedList);

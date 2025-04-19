@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_project/models/location.dart';
-import 'package:flutter_weather_project/screens/new_location/new_location_error_message.dart';
-import 'package:flutter_weather_project/screens/new_location/new_location_tile.dart';
+import 'package:flutter_weather_project/screens/locations_screen/new_location_error_message.dart';
+import 'package:flutter_weather_project/screens/locations_screen/location_tile.dart';
 import 'package:flutter_weather_project/services/geolocation_service.dart';
 
 class NewLocationForm extends StatefulWidget {
@@ -91,8 +91,9 @@ class _NewLocationFormState extends State<NewLocationForm> {
                               shrinkWrap: true,
                               itemCount: _foundLocations.length,
                               itemBuilder:
-                                  (context, index) => NewLocationTile(
+                                  (context, index) => LocationTile(
                                     location: _foundLocations[index],
+                                    isFromForm: true,
                                   ),
                             ),
                   ),
