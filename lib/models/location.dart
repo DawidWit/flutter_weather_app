@@ -1,6 +1,7 @@
 class Location {
   String fullLocationName;
   String locationName;
+  String sublocationName;
   double latitude;
   double longitude;
   String countryCode;
@@ -11,6 +12,7 @@ class Location {
     required this.locationName,
     required this.countryCode,
     required this.latitude,
+    required this.sublocationName,
     required this.longitude,
     this.isFavourite = false,
   });
@@ -22,12 +24,14 @@ class Location {
       countryCode: json['countryCode'],
       latitude: json['latitude'],
       longitude: json['longitude'],
+      sublocationName: json['sublocationName'],
       isFavourite: json['isFavourite'] ?? false,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'sublocationName': sublocationName,
       'fullLocationName': fullLocationName,
       'latitude': latitude,
       'longitude': longitude,

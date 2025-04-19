@@ -18,19 +18,26 @@ class GeolocationService {
       List<Location> locations = [];
       final data = json.decode(res.body);
       try {
+        data['results'].sort(
+          (a, b) => b['rank']['importance'].toString().compareTo(
+            a['rank']['importance'].toString(),
+          ),
+        );
         for (final location in data['results']) {
           if (location['result_type'] != "city" &&
               location['result_type'] != 'postcode') {
             continue;
           }
           Location loc = Location(
-            fullLocationName: location['formatted'],
-            locationName: location['city'],
+            fullLocationName: location['formatted'] ?? '',
+            locationName: location['city'] ?? '',
+            sublocationName: location['state'] ?? '',
             countryCode: location['country_code'],
             latitude: location['lat'],
             longitude: location['lon'],
           );
           locations.add(loc);
+          print(location);
         }
         return locations;
       } catch (e) {

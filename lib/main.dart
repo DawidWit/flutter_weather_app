@@ -55,6 +55,8 @@ final ThemeData _themeData = ThemeData(
     onTertiary: Color(0xFF27233A),
   ),
 
+  cardColor: Color(0xFF1C1A2B),
+
   textTheme: TextTheme(
     bodyLarge: TextStyle(color: Color(0xFFA1CDA8)),
     bodyMedium: TextStyle(color: Color(0xFFA1CDA8)),

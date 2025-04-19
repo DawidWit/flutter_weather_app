@@ -56,7 +56,7 @@ class LocationProvider extends ChangeNotifier {
     return Location.fromJson(json.decode(encodedLocation));
   }
 
-  void addLocation(Location location) async {
+  Future<bool> addLocation(Location location) async {
     _isLoading = true;
     _error = null;
     notifyListeners();
@@ -68,11 +68,12 @@ class LocationProvider extends ChangeNotifier {
       final List<String> encodedList =
           temp.map((loc) => json.encode(loc.toJson())).toList();
       await _prefs?.setStringList('locations', encodedList);
+      _isLoading = false;
+      notifyListeners();
+      return true;
     } catch (e) {
       _error = e.toString();
+      return false;
     }
-
-    _isLoading = false;
-    notifyListeners();
   }
 }
