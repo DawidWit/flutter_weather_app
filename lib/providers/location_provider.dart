@@ -108,4 +108,9 @@ class LocationProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  void markLocationAsSelected(Location? location) {
+    _selectedLocation = location;
+    notifyListeners();
+  }
 }

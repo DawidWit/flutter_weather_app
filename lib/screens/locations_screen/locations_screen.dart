@@ -41,11 +41,29 @@ class LocationsScreen extends StatelessWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: locationProvider.locations.length,
-                  itemBuilder:
-                      (context, index) => LocationTile(
+                  itemBuilder: (context, index) {
+                    return TweenAnimationBuilder<Offset>(
+                      tween: Tween<Offset>(
+                        begin: const Offset(-5.0, 0.0),
+                        end: Offset.zero,
+                      ),
+                      duration: Duration(milliseconds: 900 + index * 100),
+                      curve: Curves.easeInOut,
+                      builder: (context, offset, child) {
+                        return Transform.translate(
+                          offset: Offset(
+                            offset.dx * MediaQuery.of(context).size.width,
+                            0,
+                          ),
+                          child: child,
+                        );
+                      },
+                      child: LocationTile(
                         location: locationProvider.locations[index],
                         isFromForm: false,
                       ),
+                    );
+                  },
                 ),
               ),
     );

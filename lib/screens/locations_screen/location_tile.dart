@@ -15,15 +15,17 @@ class LocationTile extends StatelessWidget {
   });
 
   void _onPressFunction(BuildContext context) async {
+    final locationProvider = Provider.of<LocationProvider>(
+      context,
+      listen: false,
+    );
     if (isFromForm) {
-      final locationProvider = Provider.of<LocationProvider>(
-        context,
-        listen: false,
-      );
       await locationProvider.addLocation(location);
       if (!context.mounted) return;
       Navigator.pop(context);
-    } else {}
+    } else {
+      locationProvider.markLocationAsSelected(location);
+    }
   }
 
   void _onSwipeFunction(BuildContext context) async {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_project/providers/location_provider.dart';
-import 'package:flutter_weather_project/screens/weather_screen_main.dart';
+import 'package:flutter_weather_project/screens/location_screen_main.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +22,7 @@ class WeatherApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Weather App',
         theme: _themeData,
-        home: WeatherScreenMain(),
+        home: LocationScreenMain(),
       ),
     );
   }
